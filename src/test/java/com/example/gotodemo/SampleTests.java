@@ -58,25 +58,17 @@ public class SampleTests {
 				.defaultSystem("You are a friendly assistant that answers question in the voice of {voice}.")
 				.build();
 
-		String voice1 = "Pirate";
 
-		var response = chatClient.prompt()
-				.user("Tell me a joke")
-				.system(sp -> sp.param("voice", voice1))
-				.call()
-				.content();
+		for (String voice : List.of("Pirate", "Yoda", "Shakespeare", "Robot")) {
 
-		logger.info("\n\n {} Response: {}", voice1, response);
+			var response = chatClient.prompt()
+					.user("Tell me a joke")
+					.system(sp -> sp.param("voice", voice))
+					.call()
+					.content();
 
-		String voice2 = "Opera singer";
-
-		response = chatClient.prompt()
-				.user("Tell me a joke")
-				.system(sp -> sp.param("voice", voice2))
-				.call()
-				.content();
-
-		logger.info("\n\n {} Response: {}", voice2, response);
+			logger.info("\n\n {} joke: {} \n", voice, response);
+		}
 	}
 
 	/////////////////////

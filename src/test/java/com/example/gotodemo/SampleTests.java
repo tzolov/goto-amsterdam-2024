@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
@@ -23,6 +22,8 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.MimeTypeUtils;
 
 @SpringBootTest
 public class SampleTests {
@@ -48,7 +49,7 @@ public class SampleTests {
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {}", response);
+		logger.info("\n\n Response: {} \n\n", response);
 	}
 
 	@Test
@@ -58,7 +59,6 @@ public class SampleTests {
 				.defaultSystem("You are a friendly assistant that answers question in the voice of {voice}.")
 				.build();
 
-
 		for (String voice : List.of("Pirate", "Yoda", "Shakespeare", "Robot")) {
 
 			var response = chatClient.prompt()
@@ -67,7 +67,7 @@ public class SampleTests {
 					.call()
 					.content();
 
-			logger.info("\n\n {} joke: {} \n", voice, response);
+			logger.info("\n\n {} joke: {} \n\n", voice, response);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class SampleTests {
 				.call()
 				.entity(ActorFilms.class);
 
-		logger.info("\n\n Response: {}", response);
+		logger.info("\n\n Response: {} \n\n", response);
 	}
 
 	@Test
@@ -117,7 +117,7 @@ public class SampleTests {
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {}", response);
+		logger.info("\n\n Response: {} \n\n", response);
 	}
 
 	@Test
@@ -142,7 +142,7 @@ public class SampleTests {
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {}", response);
+		logger.info("\n\n Response: {} \n\n", response);
 	}
 
 	/////////////////////
@@ -165,7 +165,7 @@ public class SampleTests {
 				.call()
 				.chatResponse();
 
-		logger.info("\n\n Response: {}", response.getResult().getOutput().getContent());
+		logger.info("\n\n Response: {} \n\n", response.getResult().getOutput().getContent());
 
 		// evaluate(userText, response);
 	}
@@ -205,6 +205,21 @@ public class SampleTests {
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {} \nn", response);
+		logger.info("\n\n Response: {} \n\n", response);
+	}
+
+	/////////////////////
+	// Multi-modality
+	/////////////////////
+	@Test
+	void multiModality() {
+
+		String response = ChatClient.create(chatModel).prompt()
+				.user(u -> u.text("Explain what do you see on this picture?")
+						.media(MimeTypeUtils.IMAGE_PNG, new ClassPathResource("/data/test.png")))
+				.call()
+				.content();
+
+		logger.info("\n\n Response: {} \n\n", response);
 	}
 }

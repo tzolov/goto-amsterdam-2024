@@ -32,7 +32,7 @@ public class FunctionCallingTest {
                 .call()
                 .content();
 
-        logger.info("\n Response: {} \n", response);
+        logger.info("\n\n Response: {} \n\n", response);
 
     }
 

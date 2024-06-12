@@ -19,28 +19,41 @@
 		<spring-ai.version>1.0.0-SNAPSHOT</spring-ai.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- Chat Model -->
 		<!-- <dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
-		</dependency> -->
-
-		<!-- <dependency>
-			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-azure-openai-spring-boot-starter</artifactId>
 		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-openai-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- <dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-azure-openai-spring-boot-starter</artifactId>
+		</dependency> -->
+
+
+		<!-- Vector Databases -->
+		 <!-- docker-compose -f ./docker-compose.yml up -->
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-pgvector-store-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- docker-compose -f ./docker-compose-chroma.yml up -->
+		<!-- <dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-chroma-store-spring-boot-starter</artifactId>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.ai</groupId>

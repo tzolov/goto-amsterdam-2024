@@ -26,9 +26,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.MimeTypeUtils;
 
 @SpringBootTest
-public class SampleTests {
+public class GotoAmsterdam2024 {
 
-	private static final Logger logger = LoggerFactory.getLogger(SampleTests.class);
+	private static final Logger logger = LoggerFactory.getLogger(GotoAmsterdam2024.class);
 
 	@Autowired
 	private ChatModel chatModel;
@@ -49,7 +49,7 @@ public class SampleTests {
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {} \n\n", response);
+		logger.info("\n\n>> Response: {} \n\n", response);
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class SampleTests {
 					.call()
 					.content();
 
-			logger.info("\n\n {} joke: {} \n\n", voice, response);
+			logger.info("\n\n>>  {} joke: {} \n\n", voice, response);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class SampleTests {
 				.call()
 				.entity(ActorFilms.class);
 
-		logger.info("\n\n Response: {} \n\n", response);
+		logger.info("\n\n>>  Response: {} \n\n", response);
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class SampleTests {
 				.entity(new ParameterizedTypeReference<List<ActorFilms>>() {
 				});
 
-		logger.info("\n\n Response: {}", response);
+		logger.info("\n\n>> Response: {}", response);
 	}
 
 	/////////////////////
@@ -117,7 +117,7 @@ public class SampleTests {
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {} \n\n", response);
+		logger.info("\n\n>> Response: {} \n\n", response);
 	}
 
 	@Test
@@ -142,14 +142,14 @@ public class SampleTests {
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {} \n\n", response);
+		logger.info("\n\n>> Response: {} \n\n", response);
 	}
 
 	/////////////////////
 	// RAG
 	/////////////////////
 	@Test
-	void loadData() {
+	void preLoadData() {
 		dataLoadingService.load();
 	}
 
@@ -165,7 +165,7 @@ public class SampleTests {
 				.call()
 				.chatResponse();
 
-		logger.info("\n\n Response: {} \n\n", response.getResult().getOutput().getContent());
+		logger.info("\n\n>> Response: {} \n\n", response.getResult().getOutput().getContent());
 
 		// evaluate(userText, response);
 	}
@@ -195,17 +195,19 @@ public class SampleTests {
 				// .defaultAdvisors(new VectorStoreChatMemoryAdvisor(vectorStore))
 				.build();
 
-		chatClient.prompt()
+		var response = chatClient.prompt()
 				.user("My name is John")
 				.call()
 				.content();
 
-		var response = chatClient.prompt()
+		logger.info("\n\n>> Response 1: {} \n\n", response);
+
+		response = chatClient.prompt()
 				.user("Please tell me, what is my name?")
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {} \n\n", response);
+		logger.info("\n\n>> Response 2: {} \n\n", response);
 	}
 
 	/////////////////////
@@ -220,6 +222,6 @@ public class SampleTests {
 				.call()
 				.content();
 
-		logger.info("\n\n Response: {} \n\n", response);
+		logger.info("\n\n>> Response: {} \n\n", response);
 	}
 }
